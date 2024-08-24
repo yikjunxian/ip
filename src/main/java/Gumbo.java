@@ -33,7 +33,6 @@ public class Gumbo {
             }
 
         }
-
         class Deadline extends Task {
 
             protected String by;
@@ -59,7 +58,6 @@ public class Gumbo {
                 return "[T]" + super.toString();
             }
         }
-
         class Event extends Task {
 
             protected String to;
@@ -74,6 +72,12 @@ public class Gumbo {
             @Override
             public String toString() {
                 return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            }
+        }
+
+        class GumboException extends Exception {
+            GumboException(String msg) {
+                super(msg);
             }
         }
 
@@ -110,32 +114,67 @@ public class Gumbo {
                 System.out.println("OK, I've marked this task as not done yet:\n"
                         + completedTask);
             } else if (userInput.startsWith("deadline")) {
-                int dlIndex = userInput.lastIndexOf("/by");
-                String by = userInput.substring(dlIndex + 4);
-                Deadline newDeadline = new Deadline(userInput.substring(0, dlIndex - 1), by);
-                taskArr.add(newDeadline);
-                System.out.println("Got it. I've added this task:\n"
-                        + newDeadline + "\n"
-                        + "Now you have " + taskArr.size() + " tasks in the list");
+                try {
+                    int dlIndex = userInput.lastIndexOf("/by");
+                    String by = userInput.substring(dlIndex + 4);
+                    if (dlIndex == -1 || by.isEmpty() || by.isBlank()) {
+                        throw new GumboException("OOPS!!! Please specify the date of your deadline.\n");
+                    }
+                    String dlDescription = userInput.substring(8, dlIndex - 1);
+                    if (dlDescription.isEmpty() || dlDescription.isBlank()) {
+                        throw new GumboException("OOPS!!! Please include a description of your deadline.\n");
+                    }
+
+                    Deadline newDeadline = new Deadline(dlDescription, by);
+                    taskArr.add(newDeadline);
+                    System.out.println("Got it. I've added this task:\n"
+                            + newDeadline + "\n"
+                            + "Now you have " + taskArr.size() + " tasks in the list");
+                } catch (GumboException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (userInput.startsWith("todo")) {
-                Todo newTodo = new Todo(userInput.substring(5));
-                taskArr.add(newTodo);
-                System.out.println("Got it. I've added this task:\n"
-                        + newTodo + "\n"
-                        + "Now you have " + taskArr.size() + " tasks in the list");
+                try {
+                    String todoDescription = userInput.substring(4);
+                    if (todoDescription.isEmpty() || todoDescription.isBlank()) {
+                        throw new GumboException("OOPS!!! Please include a description of your todo.\n");
+                    }
+                    Todo newTodo = new Todo(todoDescription);
+                    taskArr.add(newTodo);
+                    System.out.println("Got it. I've added this task:\n"
+                            + newTodo + "\n"
+                            + "Now you have " + taskArr.size() + " tasks in the list");
+                } catch (GumboException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (userInput.startsWith("event")) {
-                int fromIndex = userInput.lastIndexOf("/from");
-                int toIndex = userInput.lastIndexOf("/to");
-                Event newEvent = new Event(userInput.substring(6, fromIndex - 1),
-                        userInput.substring(fromIndex + 6, toIndex - 1),
-                        userInput.substring(toIndex + 4));
-                taskArr.add(newEvent);
-                System.out.println("Got it. I've added this task:\n"
-                        + newEvent + "\n"
-                        + "Now you have " + taskArr.size() + " tasks in the list");
+                try {
+                    int fromIndex = userInput.lastIndexOf("/from");
+                    int toIndex = userInput.lastIndexOf("/to");
+                    if (fromIndex == -1 || toIndex == -1) {
+                        throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
+                    }
+                    String from = userInput.substring(fromIndex + 6, toIndex - 1);
+                    String to = userInput.substring(toIndex + 4);
+                    if (from.isEmpty() || from.isBlank() || to.isEmpty() || to.isBlank()) {
+                        throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
+                    }
+                    String eventDescription = userInput.substring(5, fromIndex - 1);
+                    if (eventDescription.isEmpty() || eventDescription.isBlank()) {
+                        throw new GumboException("OOPS!!! Please include a description of your event.\n");
+                    }
+                    Event newEvent = new Event(eventDescription,
+                            userInput.substring(fromIndex + 6, toIndex - 1),
+                            userInput.substring(toIndex + 4));
+                    taskArr.add(newEvent);
+                    System.out.println("Got it. I've added this task:\n"
+                            + newEvent + "\n"
+                            + "Now you have " + taskArr.size() + " tasks in the list");
+                } catch (GumboException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
-                taskArr.add(new Task(userInput));
-                System.out.println("Added: " + userInput);
+                System.out.println(" OOPS!!! Please specify a task that you would like to add.");
             }
         }
     }
