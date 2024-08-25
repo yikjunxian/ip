@@ -173,6 +173,13 @@ public class Gumbo {
                 } catch (GumboException e) {
                     System.out.println(e.getMessage());
                 }
+            } else if (userInput.startsWith("delete")) {
+                int taskNum = Character.getNumericValue(userInput.charAt(7));
+                Task deletedTask = taskArr.get(taskNum - 1);
+                taskArr.remove(taskNum - 1);
+                System.out.println("Noted. I've removed this task:\n"
+                        + deletedTask + "\n"
+                        + "Now you have " + taskArr.size() + " tasks in the list");
             } else {
                 System.out.println(" OOPS!!! Please specify a task that you would like to add.");
             }
