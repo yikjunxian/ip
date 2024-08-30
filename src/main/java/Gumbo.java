@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+
+
 
 
 
@@ -118,16 +121,15 @@ public class Gumbo {
 
     private static Deadline getDeadline(String userInput) throws GumboException {
         int dlIndex = userInput.lastIndexOf("/by");
-        String by = userInput.substring(dlIndex + 4);
-        if (dlIndex == -1 || by.isEmpty() || by.isBlank()) {
+        String deadlineStr = userInput.substring(dlIndex + 4);
+        if (dlIndex == -1 || deadlineStr.isEmpty() || deadlineStr.isBlank()) {
             throw new GumboException("OOPS!!! Please specify the date of your deadline.\n");
         }
         String dlDescription = userInput.substring(8, dlIndex - 1);
         if (dlDescription.isEmpty() || dlDescription.isBlank()) {
             throw new GumboException("OOPS!!! Please include a description of your deadline.\n");
         }
-
-        return new Deadline(dlDescription, by);
+        return new Deadline(dlDescription, deadlineStr);
     }
 
     private static Task textToTask(String text) {
