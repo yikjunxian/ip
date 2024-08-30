@@ -10,6 +10,12 @@ public class Event extends Task {
     }
 
     @Override
+    public String toTextString() {
+        int status = super.isDone ? 1 : 0;
+        return "E" + "," + status + "," + super.description + "," + this.from + "," + this.to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
