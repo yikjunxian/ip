@@ -1,21 +1,33 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+
+
 public class Gumbo {
 
-    public static void main(String[] args) {
+    // "./" references the current working dir, therefore FILE_PATH search for data dir in the curr dir
+    private static final String FILE_PATH = "./data/Gumbo.txt";
+
+    public static void main(String[] args) throws IOException {
 
         System.out.println("Hello! I'm Gumbo\n" +
                 "What can I do for you?\n");
 
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        ArrayList<Task> taskArr = new ArrayList<>();
+        checkDataDir();
+        ArrayList<Task> taskArr = loadTasks();
 
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 
         while (true) {
             String userInput = myObj.nextLine();  // Read user input
             if (userInput.equals("bye")) {
+                saveTasks(taskArr);
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (userInput.equals("list")) {
@@ -39,17 +51,7 @@ public class Gumbo {
                         + completedTask);
             } else if (userInput.startsWith("deadline")) {
                 try {
-                    int dlIndex = userInput.lastIndexOf("/by");
-                    String by = userInput.substring(dlIndex + 4);
-                    if (dlIndex == -1 || by.isEmpty() || by.isBlank()) {
-                        throw new GumboException("OOPS!!! Please specify the date of your deadline.\n");
-                    }
-                    String dlDescription = userInput.substring(8, dlIndex - 1);
-                    if (dlDescription.isEmpty() || dlDescription.isBlank()) {
-                        throw new GumboException("OOPS!!! Please include a description of your deadline.\n");
-                    }
-
-                    Deadline newDeadline = new Deadline(dlDescription, by);
+                    Deadline newDeadline = getDeadline(userInput);
                     taskArr.add(newDeadline);
                     System.out.println("Got it. I've added this task:\n"
                             + newDeadline + "\n"
@@ -73,23 +75,7 @@ public class Gumbo {
                 }
             } else if (userInput.startsWith("event")) {
                 try {
-                    int fromIndex = userInput.lastIndexOf("/from");
-                    int toIndex = userInput.lastIndexOf("/to");
-                    if (fromIndex == -1 || toIndex == -1) {
-                        throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
-                    }
-                    String from = userInput.substring(fromIndex + 6, toIndex - 1);
-                    String to = userInput.substring(toIndex + 4);
-                    if (from.isEmpty() || from.isBlank() || to.isEmpty() || to.isBlank()) {
-                        throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
-                    }
-                    String eventDescription = userInput.substring(5, fromIndex - 1);
-                    if (eventDescription.isEmpty() || eventDescription.isBlank()) {
-                        throw new GumboException("OOPS!!! Please include a description of your event.\n");
-                    }
-                    Event newEvent = new Event(eventDescription,
-                            userInput.substring(fromIndex + 6, toIndex - 1),
-                            userInput.substring(toIndex + 4));
+                    Event newEvent = getEvent(userInput);
                     taskArr.add(newEvent);
                     System.out.println("Got it. I've added this task:\n"
                             + newEvent + "\n"
@@ -106,6 +92,97 @@ public class Gumbo {
                         + "Now you have " + taskArr.size() + " tasks in the list");
             } else {
                 System.out.println(" OOPS!!! Please specify a task that you would like to add.");
+            }
+        }
+    }
+
+    private static Event getEvent(String userInput) throws GumboException {
+        int fromIndex = userInput.lastIndexOf("/from");
+        int toIndex = userInput.lastIndexOf("/to");
+        if (fromIndex == -1 || toIndex == -1) {
+            throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
+        }
+        String from = userInput.substring(fromIndex + 6, toIndex - 1);
+        String to = userInput.substring(toIndex + 4);
+        if (from.isEmpty() || from.isBlank() || to.isEmpty() || to.isBlank()) {
+            throw new GumboException("OOPS!!! Please specify the start and end data of your event.\n");
+        }
+        String eventDescription = userInput.substring(5, fromIndex - 1);
+        if (eventDescription.isEmpty() || eventDescription.isBlank()) {
+            throw new GumboException("OOPS!!! Please include a description of your event.\n");
+        }
+        return new Event(eventDescription,
+                userInput.substring(fromIndex + 6, toIndex - 1),
+                userInput.substring(toIndex + 4));
+    }
+
+    private static Deadline getDeadline(String userInput) throws GumboException {
+        int dlIndex = userInput.lastIndexOf("/by");
+        String by = userInput.substring(dlIndex + 4);
+        if (dlIndex == -1 || by.isEmpty() || by.isBlank()) {
+            throw new GumboException("OOPS!!! Please specify the date of your deadline.\n");
+        }
+        String dlDescription = userInput.substring(8, dlIndex - 1);
+        if (dlDescription.isEmpty() || dlDescription.isBlank()) {
+            throw new GumboException("OOPS!!! Please include a description of your deadline.\n");
+        }
+
+        return new Deadline(dlDescription, by);
+    }
+
+    private static Task textToTask(String text) {
+        String[] str = text.split(",");
+        Task newTask = switch (str[0]) {
+            case "D" -> new Deadline(str[2], str[3]);
+            case "T" -> new Todo(str[2]);
+            case "E" -> new Event(str[2], str[3], str[4]);
+            default -> new Task(text);
+        };
+        if (str[1].equals("1")) {
+            newTask.markAsDone();
+        }
+        return newTask;
+    }
+
+    private static ArrayList<Task> loadTasks() throws IOException {
+        ArrayList<Task> taskArr = new ArrayList<>();
+        Path path = Paths.get(FILE_PATH);
+        if (Files.exists(path)) {
+            try {
+                List<String> taskTexts = Files.readAllLines(path);
+                for (String taskText : taskTexts) {
+                    Task newTask = textToTask(taskText);
+                    taskArr.add(newTask);
+                }
+            } catch (IOException e) {
+                System.out.println("Task could not be loaded" + e.getMessage());
+            }
+        } else {
+            System.out.println("No previous task created");
+        }
+        return taskArr;
+
+    }
+
+    private static void saveTasks(ArrayList<Task> taskArr) throws IOException {
+        Path path = Paths.get(FILE_PATH);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (Task task : taskArr) {
+                writer.write(task.toTextString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Tasks could not be saved:" + e.getMessage());
+        }
+    }
+
+    private static void checkDataDir() throws IOException {
+        Path path = Paths.get("./data");
+        if (Files.notExists(path)) {
+            try {
+                Files.createDirectory(path);
+            } catch (IOException e) {
+                System.out.println("Could not create data directory:" + e.getMessage());
             }
         }
     }
