@@ -1,9 +1,9 @@
-import commands.Command;
-import exceptions.GumboException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import Gumbo.commands.Command;
+import Gumbo.exceptions.GumboException;
+import Gumbo.parser.Parser;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 
 

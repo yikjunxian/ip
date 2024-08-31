@@ -1,8 +1,8 @@
-package commands;
+package Gumbo.commands;
 
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 public class Command {
 

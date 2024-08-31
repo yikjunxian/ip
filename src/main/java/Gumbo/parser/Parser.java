@@ -1,11 +1,16 @@
-package parser;
+package Gumbo.parser;
 
-import commands.*;
-import exceptions.IllegalValueException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import Gumbo.commands.AddCommand;
+import Gumbo.commands.Command;
+import Gumbo.commands.DeleteCommand;
+import Gumbo.commands.ExitCommand;
+import Gumbo.commands.ListCommand;
+import Gumbo.commands.MarkCommand;
+import Gumbo.commands.UnmarkCommand;
+import Gumbo.exceptions.IllegalValueException;
+import Gumbo.tasks.Deadline;
+import Gumbo.tasks.Event;
+import Gumbo.tasks.Todo;
 
 public class Parser {
 

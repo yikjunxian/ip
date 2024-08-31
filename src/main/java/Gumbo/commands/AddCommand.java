@@ -1,9 +1,10 @@
-package commands;
+package Gumbo.commands;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import Gumbo.commands.Command;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.Task;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 public class AddCommand extends Command {
     Task taskToAdd;
