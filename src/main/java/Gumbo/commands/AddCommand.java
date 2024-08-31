@@ -1,6 +1,5 @@
 package Gumbo.commands;
 
-import Gumbo.commands.Command;
 import Gumbo.storage.Storage;
 import Gumbo.tasks.Task;
 import Gumbo.tasks.TaskList;
