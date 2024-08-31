@@ -1,9 +1,9 @@
-package commands;
+package Gumbo.commands;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.Task;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 public class DeleteCommand extends Command {
     public int taskNumToDelete;

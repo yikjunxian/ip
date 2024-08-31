@@ -1,12 +1,12 @@
-package storage;
+package Gumbo.storage;
 
-import exceptions.GumboException;
-import exceptions.IllegalValueException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Todo;
+import Gumbo.exceptions.GumboException;
+import Gumbo.exceptions.IllegalValueException;
+import Gumbo.tasks.Deadline;
+import Gumbo.tasks.Event;
+import Gumbo.tasks.Task;
+import Gumbo.tasks.TaskList;
+import Gumbo.tasks.Todo;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
