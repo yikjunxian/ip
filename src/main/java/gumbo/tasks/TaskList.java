@@ -25,6 +25,15 @@ public class TaskList {
     public void remove(int taskNumToDelete) {
         taskArr.remove(taskNumToDelete);
     }
+    public TaskList findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTaskArr = new ArrayList<>();
+        for (Task task : taskArr) {
+            if (task.description.contains(keyword)) {
+                matchingTaskArr.add(task);
+            }
+        }
+        return new TaskList(matchingTaskArr);
+    }
 
     public int size() {
         return taskArr.size();
