@@ -1,8 +1,8 @@
-package gumbo.commands;
+package Gumbo.commands;
 
-import gumbo.storage.Storage;
-import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 /**
  * A Command that terminates the application and saves the task lists to storage when executed.
@@ -24,7 +24,7 @@ public class ExitCommand extends Command {
             ui.showError(e.toString());
         }
         ui.showToUser("Bye. Hope to see you again soon!");
-        super.setTerminateTrue();
+        super.terminate = true;
         ui.getScanner().close();
     }
 }

@@ -1,4 +1,4 @@
-package gumbo.tasks;
+package Gumbo.tasks;
 
 public class Todo extends Task {
     public Todo(String description) {

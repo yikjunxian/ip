@@ -1,4 +1,12 @@
-package gumbo.storage;
+package Gumbo.storage;
+
+import Gumbo.exceptions.GumboException;
+import Gumbo.exceptions.IllegalValueException;
+import Gumbo.tasks.Deadline;
+import Gumbo.tasks.Event;
+import Gumbo.tasks.Task;
+import Gumbo.tasks.TaskList;
+import Gumbo.tasks.Todo;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -8,15 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import gumbo.exceptions.GumboException;
-import gumbo.exceptions.IllegalValueException;
-import gumbo.tasks.Deadline;
-import gumbo.tasks.Event;
-import gumbo.tasks.Task;
-import gumbo.tasks.TaskList;
-import gumbo.tasks.Todo;
-
 
 /**
  * Handles the loading and saving of tasks to a file.

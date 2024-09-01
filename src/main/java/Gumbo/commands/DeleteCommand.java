@@ -1,9 +1,9 @@
-package gumbo.commands;
+package Gumbo.commands;
 
-import gumbo.storage.Storage;
-import gumbo.tasks.Task;
-import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
+import Gumbo.storage.Storage;
+import Gumbo.tasks.Task;
+import Gumbo.tasks.TaskList;
+import Gumbo.ui.Ui;
 
 /**
  * A Command that deletes a task to the task list when executed.

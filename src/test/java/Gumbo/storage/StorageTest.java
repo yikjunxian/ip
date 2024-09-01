@@ -1,7 +1,7 @@
-package Gumbo.storage;
+package gumbo.storage;
 
-import Gumbo.tasks.Task;
-import Gumbo.tasks.Todo;
+import gumbo.tasks.Task;
+import gumbo.tasks.Todo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;

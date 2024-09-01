@@ -1,4 +1,4 @@
-package gumbo.tasks;
+package Gumbo.tasks;
 
 public class Task {
     protected String description;

@@ -1,4 +1,4 @@
-package gumbo.tasks;
+package Gumbo.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,8 +6,10 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     protected LocalDate deadline;
-    private DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+
     public Deadline(String description, String deadline) {
         super(description);
         try {
