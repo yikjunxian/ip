@@ -12,8 +12,17 @@ import Gumbo.tasks.Deadline;
 import Gumbo.tasks.Event;
 import Gumbo.tasks.Todo;
 
+/**
+ * Interprets user input and creates the corresponding {@code Command} objects to execute user instructions.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding {@code Command} object.
+     *
+     * @param fullCommand The full string of user input.
+     * @return A {@code Command} object representing the user's request.
+     */
     public static Command parse(String fullCommand) {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();
@@ -66,6 +75,15 @@ public class Parser {
             return new Command();
         }
     }
+
+    /**
+     * Creates a {@code Deadline} object from the user's input.
+     * Extracts the description and deadline date from the input string.
+     *
+     * @param userInput The full string of user input specifying the deadline.
+     * @return A {@code Deadline} object representing the user's deadline task.
+     * @throws IllegalValueException If the input does not specify a valid deadline or date.
+     */
     private static Deadline getDeadline(String userInput) throws IllegalValueException {
         int dlIndex = userInput.lastIndexOf("/by");
         String deadlineStr = userInput.substring(dlIndex + 4);
@@ -79,6 +97,14 @@ public class Parser {
         return new Deadline(dlDescription, deadlineStr);
     }
 
+    /**
+     * Creates an {@code Event} object from the user's input.
+     * Extracts the description, start time, and end time of the event from the input string.
+     *
+     * @param userInput The full string of user input specifying the event.
+     * @return An {@code Event} object representing the user's event task.
+     * @throws IllegalValueException If the input does not specify a valid event description, start time, or end time.
+     */
     private static Event getEvent(String userInput) throws IllegalValueException {
         int fromIndex = userInput.lastIndexOf("/from");
         int toIndex = userInput.lastIndexOf("/to");
