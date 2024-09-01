@@ -1,12 +1,6 @@
 package gumbo.parser;
 
-import gumbo.commands.AddCommand;
-import gumbo.commands.Command;
-import gumbo.commands.DeleteCommand;
-import gumbo.commands.ExitCommand;
-import gumbo.commands.ListCommand;
-import gumbo.commands.MarkCommand;
-import gumbo.commands.UnmarkCommand;
+import gumbo.commands.*;
 import gumbo.exceptions.IllegalValueException;
 import gumbo.tasks.Deadline;
 import gumbo.tasks.Event;
@@ -70,6 +64,9 @@ public class Parser {
         } else if (fullCommand.startsWith("delete")) {
             int taskNum = Character.getNumericValue(fullCommand.charAt(7));
             return new DeleteCommand(taskNum - 1);
+        } else if (fullCommand.startsWith("find")) {
+            String keyword = fullCommand.substring(5);
+            return new FindCommand(keyword);
         } else {
             System.out.println(" OOPS!!! Please specify a task that you would like to add.");
             return new Command();
