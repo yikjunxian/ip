@@ -1,16 +1,16 @@
-package Gumbo.parser;
+package gumbo.parser;
 
-import Gumbo.commands.AddCommand;
-import Gumbo.commands.Command;
-import Gumbo.commands.DeleteCommand;
-import Gumbo.commands.ExitCommand;
-import Gumbo.commands.ListCommand;
-import Gumbo.commands.MarkCommand;
-import Gumbo.commands.UnmarkCommand;
-import Gumbo.exceptions.IllegalValueException;
-import Gumbo.tasks.Deadline;
-import Gumbo.tasks.Event;
-import Gumbo.tasks.Todo;
+import gumbo.commands.AddCommand;
+import gumbo.commands.Command;
+import gumbo.commands.DeleteCommand;
+import gumbo.commands.ExitCommand;
+import gumbo.commands.ListCommand;
+import gumbo.commands.MarkCommand;
+import gumbo.commands.UnmarkCommand;
+import gumbo.exceptions.IllegalValueException;
+import gumbo.tasks.Deadline;
+import gumbo.tasks.Event;
+import gumbo.tasks.Todo;
 
 /**
  * Interprets user input and creates the corresponding {@code Command} objects to execute user instructions.

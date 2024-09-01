@@ -1,15 +1,15 @@
-package Gumbo.commands;
+package gumbo.commands;
 
-import Gumbo.storage.Storage;
-import Gumbo.tasks.TaskList;
-import Gumbo.ui.Ui;
+import gumbo.storage.Storage;
+import gumbo.tasks.TaskList;
+import gumbo.ui.Ui;
 
 /**
  * Represents an executable command.
  */
 public class Command {
 
-    public boolean terminate = false;
+    private boolean shouldTerminate = false;
 
     /**
      * Executes the command and returns the result.
@@ -26,9 +26,12 @@ public class Command {
     /**
      * Checks if command is an exit command.
      *
-     * @return {@code rue} if command should terminate the application, {@code false} otherwise.
+     * @return {@code true} if command should terminate the application, {@code false} otherwise.
      */
     public boolean isExit() {
-        return terminate;
+        return shouldTerminate;
+    }
+    public void setTerminateTrue() {
+        this.shouldTerminate = true;
     }
 }

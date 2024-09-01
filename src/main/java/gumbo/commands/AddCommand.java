@@ -1,9 +1,9 @@
-package Gumbo.commands;
+package gumbo.commands;
 
-import Gumbo.storage.Storage;
-import Gumbo.tasks.Task;
-import Gumbo.tasks.TaskList;
-import Gumbo.ui.Ui;
+import gumbo.storage.Storage;
+import gumbo.tasks.Task;
+import gumbo.tasks.TaskList;
+import gumbo.ui.Ui;
 
 /**
  * A Command that adds a task to the task list when executed.

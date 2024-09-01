@@ -1,4 +1,4 @@
-package Gumbo.exceptions;
+package gumbo.exceptions;
 
 /**
  * Signals that some given data does not fulfill some constraints.
