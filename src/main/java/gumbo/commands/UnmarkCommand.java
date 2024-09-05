@@ -1,12 +1,12 @@
-package Gumbo.commands;
+package gumbo.commands;
 
-import Gumbo.storage.Storage;
-import Gumbo.tasks.Task;
-import Gumbo.tasks.TaskList;
-import Gumbo.ui.Ui;
+import gumbo.storage.Storage;
+import gumbo.tasks.Task;
+import gumbo.tasks.TaskList;
+import gumbo.ui.Ui;
 
-public class UnmarkCommand extends Command{
-    int taskNumToUnmark;
+public class UnmarkCommand extends Command {
+    private int taskNumToUnmark;
     public UnmarkCommand(int taskNum) {
         this.taskNumToUnmark = taskNum;
     }

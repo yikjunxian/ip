@@ -1,4 +1,4 @@
-package Gumbo.tasks;
+package gumbo.tasks;
 
 import java.util.ArrayList;
 
@@ -6,12 +6,8 @@ public class TaskList {
 
     private static ArrayList<Task> taskArr = new ArrayList<>();
 
-    public TaskList(){
-
-    }
-
     public TaskList(ArrayList<Task> taskArr) {
-        this.taskArr = taskArr;
+        TaskList.taskArr = taskArr;
     }
 
     public Task get(int taskNumToGet) {
@@ -28,6 +24,15 @@ public class TaskList {
 
     public void remove(int taskNumToDelete) {
         taskArr.remove(taskNumToDelete);
+    }
+    public TaskList findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTaskArr = new ArrayList<>();
+        for (Task task : taskArr) {
+            if (task.description.contains(keyword)) {
+                matchingTaskArr.add(task);
+            }
+        }
+        return new TaskList(matchingTaskArr);
     }
 
     public int size() {

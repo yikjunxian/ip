@@ -1,4 +1,4 @@
-package Gumbo.tasks;
+package gumbo.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,8 +9,8 @@ public class Event extends Task {
     protected LocalDate to;
     protected LocalDate from;
 
-    DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Event(String description, String from, String to) {
         super(description);

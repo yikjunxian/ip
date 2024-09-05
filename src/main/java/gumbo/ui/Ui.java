@@ -1,4 +1,4 @@
-package Gumbo.ui;
+package gumbo.ui;
 import java.util.Scanner;
 
 
