@@ -54,6 +54,6 @@ public class Main {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Main("data/Gumbo.txt").run();
+        new Main("data/gumbo.txt").run();
     }
 }
