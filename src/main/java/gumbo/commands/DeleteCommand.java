@@ -29,11 +29,11 @@ public class DeleteCommand extends Command {
      * @param taskList Contains list of tasks.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         Task deletedTask = taskList.get(taskNumToDelete);
         taskList.remove(taskNumToDelete);
-        ui.showToUser("Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n"
                 + deletedTask + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list");
+                + "Now you have " + taskList.size() + " tasks in the list";
     }
 }

@@ -12,10 +12,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         Task markedTask = taskList.get(taskNumToMark);
         markedTask.markAsDone();
-        ui.showToUser("Nice! I've marked this task as done:\n"
-                + markedTask);
+        return "Nice! I've marked this task as done:\n"
+                + markedTask;
     }
 }

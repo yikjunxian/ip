@@ -12,7 +12,7 @@ public class Ui {
     /**
      * Displays a welcome message to the user when the application starts.
      */
-    public void showWelcome() {
+    public void printWelcome() {
         System.out.println("Hello! I'm Gumbo\n"
                 + "What can I do for you?\n");
     }

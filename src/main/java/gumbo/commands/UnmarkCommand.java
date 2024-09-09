@@ -12,10 +12,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         Task unmarkedTask = taskList.get(taskNumToUnmark);
         unmarkedTask.markAsUndone();
-        ui.showToUser("OK, I've unmarked this task as not done yet:\n"
-                + unmarkedTask);
+        return "OK, I've unmarked this task as not done yet:\n"
+                + unmarkedTask;
     }
 }

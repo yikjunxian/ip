@@ -29,10 +29,10 @@ public class AddCommand extends Command {
      * @param taskList Contains list of tasks.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         taskList.add(taskToAdd);
-        ui.showToUser("Got it. I've added this task:\n"
+        return "Got it. I've added this task:\n"
                 + taskToAdd + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list");
+                + "Now you have " + taskList.size() + " tasks in the list";
     }
 }
