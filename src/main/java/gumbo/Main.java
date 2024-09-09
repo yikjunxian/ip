@@ -1,59 +1,41 @@
 package gumbo;
 
-import gumbo.commands.Command;
-import gumbo.exceptions.GumboException;
-import gumbo.parser.Parser;
-import gumbo.storage.Storage;
-import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
+import java.io.IOException;
 
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 /**
- * Entry point of the Gumbo chatbot application.
+ * A GUI for Duke using FXML.
  */
-public class Main {
-
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
-
-    /**
-     * Constructs a {@code Main} instance with the relevant storage file path.
-     * Initialises the ui, storage and tasks fields.
-     *
-     * @param filePath File path for loading and saving tasks data.
-     */
-    public Main(String filePath) {
-        ui = new Ui();
+public class Main extends Application {
+    private Gumbo gumbo = new Gumbo("data/Gumbo.txt");
+    @Override
+    public void start(Stage stage) {
         try {
-            storage = new Storage(filePath);
-            tasks = new TaskList(storage.load());
-        } catch (GumboException e) {
-            ui.showLoadingError();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            /*
+            When load() is called:
+            1. loads the FXML file (MainWindow.fxml)
+            2. Creates an instance of the controller class specified by the fx:controller attribute,
+                by calling its no-argument constructor (new MainWindow())
+            3. Sets the value of any @FXML-annotated fields in the controller to the elements defined
+                with matching fx:id attributes
+                (e.g assigns scrollPane var in MainWindow to the ScrollPane in the MainWindow.fxml)
+            4. Registers any event handlers mapping to methods in the controller (handleUserInput)
+            5. Calls the initialize() method on the controller, if there is one.
+            */
+            AnchorPane ap = fxmlLoader.load(); // loads object hierachy from fxml document
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            // get controller returns the controller associated with the root obj (with is main window)
+            fxmlLoader.<MainWindow>getController().setGumbo(gumbo); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().printWelcome(); // inject the Duke instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    /**
-     * Executes the main logic of the application.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            c.execute(ui, storage, tasks);
-            isExit = c.isExit();
-        }
-    }
-
-    /**
-     * Main entry point of the application.
-     * Instantiates a {@code Main} instance with the relevant file path.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Main("data/gumbo.txt").run();
     }
 }

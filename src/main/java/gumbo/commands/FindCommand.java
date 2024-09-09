@@ -27,13 +27,14 @@ public class FindCommand extends Command {
      * @param taskList Contains list of tasks.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         TaskList matchingTaskList = taskList.findMatchingTasks(this.keyword);
         int i = matchingTaskList.size();
-        ui.showToUser("Here are tasks matching tasks in your list: ");
+        StringBuilder str = new StringBuilder("Here are tasks matching tasks in your list: \n");
         for (int j = 1; j < i + 1; j++) {
             Task x = matchingTaskList.get(j - 1);
-            ui.showToUser(j + ". " + x);
+            str.append(j).append(". ").append(x).append("\n");
         }
+        return String.valueOf(str);
     }
 }

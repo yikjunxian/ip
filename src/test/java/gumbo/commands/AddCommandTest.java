@@ -1,17 +1,18 @@
-package Gumbo.commands;
+package gumbo.commands;
 
-import Gumbo.storage.Storage;
-import Gumbo.tasks.Task;
-import Gumbo.tasks.TaskList;
-import Gumbo.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import gumbo.storage.Storage;
+import gumbo.tasks.Task;
+import gumbo.tasks.TaskList;
+import gumbo.ui.Ui;
+
 
 public class AddCommandTest {
     private TaskList tasklist;

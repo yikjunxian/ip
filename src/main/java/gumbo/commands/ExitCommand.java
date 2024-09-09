@@ -17,14 +17,13 @@ public class ExitCommand extends Command {
      * @param taskList Contains list of tasks.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         try {
             storage.save(taskList);
         } catch (Storage.StorageOperationException e) {
-            ui.showError(e.toString());
+            return e.toString();
         }
-        ui.showToUser("Bye. Hope to see you again soon!");
         super.setTerminateTrue();
-        ui.getScanner().close();
+        return "Bye. Hope to see you again soon!";
     }
 }

@@ -1,11 +1,8 @@
-package Gumbo.storage;
+package gumbo.storage;
 
-import Gumbo.tasks.Task;
-import Gumbo.tasks.Todo;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,9 +10,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-
+import gumbo.tasks.Task;
+import gumbo.tasks.Todo;
 public class StorageTest {
 
     private static final Path TEST_FILE_PATH = Paths.get("testGumbo.txt");
@@ -39,7 +39,8 @@ public class StorageTest {
     }
 
     @Test
-    public void load_existingFileWithValidTasks_tasksLoadedCorrectly() throws IOException, Storage.StorageOperationException {
+    public void load_existingFileWithValidTasks_tasksLoadedCorrectly() throws IOException,
+            Storage.StorageOperationException {
         // Prepare a file with valid task data
         String content = "T,0,test task";
         Files.write(TEST_FILE_PATH, content.getBytes());
@@ -56,7 +57,7 @@ public class StorageTest {
         Files.write(TEST_FILE_PATH, invalidData.getBytes());
 
         try {
-            ArrayList<Task> tasks = storage.load();
+            storage.load();
 
         } catch (Storage.StorageOperationException e) {
             assertEquals("Error writing to file: " + TEST_FILE_PATH, e.getMessage());

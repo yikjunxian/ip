@@ -19,10 +19,9 @@ public class Command {
      * @param storage Storage to save tasks file or load task files from.
      * @param taskList Contains list of tasks.
      */
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws UnsupportedOperationException {
+    public String execute(Ui ui, Storage storage, TaskList taskList) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("This method is implemented by child classes");
     }
-
     /**
      * Checks if command is an exit command.
      *
