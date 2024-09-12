@@ -41,11 +41,7 @@ public class Parser {
             Deadline newDeadline = getDeadline(fullCommand);
             yield new AddCommand(newDeadline);
         case "todo":
-            String todoDescription = fullCommand.substring(4);
-            if (todoDescription.isEmpty() || todoDescription.isBlank()) {
-                throw new IllegalValueException("OOPS!!! Please include a description of your todo.\n");
-            }
-            Todo newTodo = new Todo(todoDescription);
+            Todo newTodo = getTodo(fullCommand);
             yield new AddCommand(newTodo);
         case "event":
             Event newEvent = getEvent(fullCommand);
@@ -59,6 +55,22 @@ public class Parser {
         default:
             throw new IllegalValueException(" OOPS!!! Please specify a task that you would like to add.");
         };
+    }
+
+    /**
+     * Creates a {@code Todo} object from the user's input.
+     * Extracts the description from the input string.
+     *
+     * @param userInput The full string of user input specifying the deadline.
+     * @return A {@code Todo} object representing the user's to-do task.
+     * @throws IllegalValueException If the input does not specify a valid description.
+     */
+    private static Todo getTodo(String userInput) throws IllegalValueException {
+        String todoDescription = userInput.substring(4);
+        if (todoDescription.isEmpty() || todoDescription.isBlank()) {
+            throw new IllegalValueException("OOPS!!! Please include a description of your todo.\n");
+        }
+        return new Todo(todoDescription);
     }
 
     /**
