@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param taskNumToDelete Task index to be deleted from the task list.
      */
     public DeleteCommand(int taskNumToDelete) throws IllegalValueException {
-        if (taskNumToDelete <= 0) {
+        if (taskNumToDelete < 0) {
             throw new IllegalValueException("Invalid task number");
         } else {
             this.taskNumToDelete = taskNumToDelete;
@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Ui ui, Storage storage, TaskList taskList) {
         assert taskList != null : "task list not available when deleting command";
-        assert taskNumToDelete > 0 : "task number to delete is not valid";
+        assert taskNumToDelete >= 0 : "task number to delete is not valid";
         Task deletedTask = taskList.get(taskNumToDelete);
         taskList.remove(taskNumToDelete);
         return "Noted. I've removed this task:\n"
