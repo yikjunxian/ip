@@ -32,19 +32,6 @@ public class Gumbo {
         }
     }
 
-    /**
-     * Executes the main logic of the application.
-     */
-//    public void run() {
-//        ui.showWelcome();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            String fullCommand = ui.readCommand();
-//            Command c = Parser.parse(fullCommand);
-//            c.execute(ui, storage, tasks);
-//            isExit = c.isExit();
-//        }
-//    }
     public String getResponse(String input) {
         assert storage != null : "Storage not available";
         assert tasks != null : "Task list not available";
