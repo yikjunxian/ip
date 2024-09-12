@@ -1,5 +1,6 @@
 package gumbo.commands;
 
+import gumbo.exceptions.IllegalValueException;
 import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.TaskList;
@@ -16,8 +17,12 @@ public class DeleteCommand extends Command {
      *
      * @param taskNumToDelete Task index to be deleted from the task list.
      */
-    public DeleteCommand(int taskNumToDelete) {
-        this.taskNumToDelete = taskNumToDelete;
+    public DeleteCommand(int taskNumToDelete) throws IllegalValueException {
+        if (taskNumToDelete <= 0) {
+            throw new IllegalValueException("Invalid task number");
+        } else {
+            this.taskNumToDelete = taskNumToDelete;
+        }
     }
 
     /**
@@ -30,6 +35,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList taskList) {
+        assert taskList != null : "task list not available when deleting command";
+        assert taskNumToDelete > 0 : "task number to delete is not valid";
         Task deletedTask = taskList.get(taskNumToDelete);
         taskList.remove(taskNumToDelete);
         return "Noted. I've removed this task:\n"

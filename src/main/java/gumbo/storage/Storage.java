@@ -78,6 +78,7 @@ public class Storage {
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
     public void save(TaskList taskList) throws StorageOperationException {
+        assert taskList != null : "Task list is not valid";
         try (BufferedWriter writer = Files.newBufferedWriter(path);
         ) {
             ArrayList<Task> taskArr = taskList.getAll();

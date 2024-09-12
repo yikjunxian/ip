@@ -46,6 +46,10 @@ public class Gumbo {
 //        }
 //    }
     public String getResponse(String input) {
+        assert storage != null : "Storage not available";
+        assert tasks != null : "Task list not available";
+        assert ui != null : "UI not available";
+
         try {
             Command c = Parser.parse(input);
             return c.execute(ui, storage, tasks);

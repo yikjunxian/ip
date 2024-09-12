@@ -30,6 +30,8 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList taskList) {
+        assert taskToAdd != null : "Task to add is not available";
+        assert taskList != null : "Task list is not available";
         taskList.add(taskToAdd);
         return "Got it. I've added this task:\n"
                 + taskToAdd + "\n"
