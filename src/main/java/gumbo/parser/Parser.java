@@ -25,42 +25,40 @@ public class Parser {
      * @return A {@code Command} object representing the user's request.
      */
     public static Command parse(String fullCommand) throws IllegalValueException {
-        if (fullCommand.equals("bye")) {
-            return new ExitCommand();
-
-        } else if (fullCommand.equals("list")) {
-            return new ListCommand();
-
-        } else if (fullCommand.startsWith("mark")) {
-            int taskNum = Character.getNumericValue(fullCommand.charAt(5));
-            return new MarkCommand(taskNum - 1);
-
-        } else if (fullCommand.startsWith("unmark")) {
-            int taskNum = Character.getNumericValue(fullCommand.charAt(7));
-            return new UnmarkCommand(taskNum - 1);
-
-        } else if (fullCommand.startsWith("deadline")) {
+        String[] commandStr = fullCommand.split(" ");
+        return switch(commandStr[0]) {
+        case "bye":
+            yield new ExitCommand();
+        case "list":
+            yield new ListCommand();
+        case "mark":
+            int taskNumMark = Integer.parseInt(commandStr[1]);
+            yield new MarkCommand(taskNumMark - 1);
+        case "unmark":
+            int taskNum = Integer.parseInt(commandStr[1]);
+            yield new UnmarkCommand(taskNum - 1);
+        case "deadline":
             Deadline newDeadline = getDeadline(fullCommand);
-            return new AddCommand(newDeadline);
-        } else if (fullCommand.startsWith("todo")) {
+            yield new AddCommand(newDeadline);
+        case "todo":
             String todoDescription = fullCommand.substring(4);
             if (todoDescription.isEmpty() || todoDescription.isBlank()) {
                 throw new IllegalValueException("OOPS!!! Please include a description of your todo.\n");
             }
             Todo newTodo = new Todo(todoDescription);
-            return new AddCommand(newTodo);
-        } else if (fullCommand.startsWith("event")) {
+            yield new AddCommand(newTodo);
+        case "event":
             Event newEvent = getEvent(fullCommand);
-            return new AddCommand(newEvent);
-        } else if (fullCommand.startsWith("delete")) {
-            int taskNum = Character.getNumericValue(fullCommand.charAt(7));
-            return new DeleteCommand(taskNum - 1);
-        } else if (fullCommand.startsWith("find")) {
+            yield new AddCommand(newEvent);
+        case "delete":
+            int taskNumDelete = Integer.parseInt(commandStr[1]);
+            yield new DeleteCommand(taskNumDelete - 1);
+        case "find":
             String keyword = fullCommand.substring(5);
-            return new FindCommand(keyword);
-        } else {
+            yield new FindCommand(keyword);
+        default:
             throw new IllegalValueException(" OOPS!!! Please specify a task that you would like to add.");
-        }
+        };
     }
 
     /**
