@@ -1,5 +1,7 @@
 package gumbo.tasks;
 
+import gumbo.exceptions.IllegalValueException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,11 +19,19 @@ public class Deadline extends Task {
         }
     }
 
+    public void updateDeadline(String newDeadline) {
+        try {
+            this.deadline = LocalDate.parse(newDeadline, inputDateFormat);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please input date format as [yyyy-MM-dd].");
+        }
+    }
+
     @Override
     public String toTextString() {
         int status = super.isDone ? 1 : 0;
         return "D" + "," + status + "," + super.description + ","
-                + deadline.format(outputDateFormat);
+                + deadline;
     }
 
     @Override

@@ -21,6 +21,21 @@ public class Event extends Task {
             System.out.println("Invalid date format. Please input date format as [yyyy-MM-dd].");
         }
     }
+    public void updateFrom(String from) {
+        try {
+            this.from = LocalDate.parse(from, inputDateFormat);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please input date format as [yyyy-MM-dd].");
+        }
+    }
+
+    public void updateTo(String to) {
+        try {
+            this.to = LocalDate.parse(to, inputDateFormat);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please input date format as [yyyy-MM-dd].");
+        }
+    }
 
     @Override
     public String toTextString() {
