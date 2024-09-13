@@ -1,5 +1,6 @@
 package gumbo.commands;
 
+import gumbo.exceptions.IllegalValueException;
 import gumbo.storage.Storage;
 import gumbo.tasks.TaskList;
 import gumbo.ui.Ui;
@@ -19,7 +20,7 @@ public class Command {
      * @param storage Storage to save tasks file or load task files from.
      * @param taskList Contains list of tasks.
      */
-    public String execute(Ui ui, Storage storage, TaskList taskList) throws UnsupportedOperationException {
+    public String execute(Ui ui, Storage storage, TaskList taskList) throws UnsupportedOperationException, IllegalValueException {
         throw new UnsupportedOperationException("This method is implemented by child classes");
     }
     /**

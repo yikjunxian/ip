@@ -1,5 +1,8 @@
 package gumbo.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gumbo.commands.AddCommand;
 import gumbo.commands.Command;
 import gumbo.commands.DeleteCommand;
@@ -8,6 +11,7 @@ import gumbo.commands.FindCommand;
 import gumbo.commands.ListCommand;
 import gumbo.commands.MarkCommand;
 import gumbo.commands.UnmarkCommand;
+import gumbo.commands.UpdateCommand;
 import gumbo.exceptions.IllegalValueException;
 import gumbo.tasks.Deadline;
 import gumbo.tasks.Event;
@@ -32,11 +36,11 @@ public class Parser {
         case "list":
             yield new ListCommand();
         case "mark":
-            int taskNumMark = Integer.parseInt(commandStr[1]);
-            yield new MarkCommand(taskNumMark - 1);
+            int taskNumMark = Integer.parseInt(commandStr[1]) - 1;
+            yield new MarkCommand(taskNumMark);
         case "unmark":
-            int taskNum = Integer.parseInt(commandStr[1]);
-            yield new UnmarkCommand(taskNum - 1);
+            int taskNum = Integer.parseInt(commandStr[1]) - 1;
+            yield new UnmarkCommand(taskNum);
         case "deadline":
             Deadline newDeadline = getDeadline(fullCommand);
             yield new AddCommand(newDeadline);
@@ -47,14 +51,40 @@ public class Parser {
             Event newEvent = getEvent(fullCommand);
             yield new AddCommand(newEvent);
         case "delete":
-            int taskNumDelete = Integer.parseInt(commandStr[1]);
-            yield new DeleteCommand(taskNumDelete - 1);
+            int taskNumDelete = Integer.parseInt(commandStr[1]) - 1;
+            yield new DeleteCommand(taskNumDelete);
         case "find":
             String keyword = fullCommand.substring(5);
             yield new FindCommand(keyword);
+        case "update":
+            int taskNumToUpdate = getTaskNumToUpdate(fullCommand);
+            String updateDescription = getUpdateDescription(fullCommand);
+            yield new UpdateCommand(taskNumToUpdate, updateDescription);
         default:
             throw new IllegalValueException(" OOPS!!! Please specify a task that you would like to add.");
         };
+    }
+
+    // update 1 description Do proj
+    private static String getUpdateDescription(String userInput) throws IllegalValueException {
+        ArrayList<String> descArr = new ArrayList<>(List.of(userInput.split(" ")));
+        String detailToUpdate = descArr.get(2);
+        boolean isValidDetail = detailToUpdate.equals("description") || detailToUpdate.equals("by")
+                || detailToUpdate.equals("from") || detailToUpdate.equals("to");
+        if (!isValidDetail) {
+            throw new IllegalValueException("Detail to update is not valid. Please specify either 'description', "
+                    + "'from' or 'to' to be updated\n" + "E.g. update 1 by 2024-09-14");
+        }
+        return userInput.substring(9);
+    }
+
+    private static int getTaskNumToUpdate(String userInput) throws IllegalValueException {
+        String[] inputStr = userInput.split(" ");
+        int taskNumToUpdate = Integer.parseInt(inputStr[1]) - 1;
+        if (taskNumToUpdate < 0) {
+            throw new IllegalValueException("Task number to update is not valid");
+        }
+        return taskNumToUpdate;
     }
 
     /**

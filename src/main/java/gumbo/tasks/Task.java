@@ -24,6 +24,9 @@ public class Task {
     public String toTextString() {
         return description;
     }
+    public void updateDesc(String newDesc) {
+        this.description = newDesc;
+    }
 
     @Override
     public String toString() {
