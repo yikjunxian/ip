@@ -24,6 +24,6 @@ public class ListCommand extends Command {
             Task x = taskList.get(j - 1);
             str.append(j).append(". ").append(x).append("\n");
         }
-        return String.valueOf(str.toString());
+        return str.toString();
     }
 }

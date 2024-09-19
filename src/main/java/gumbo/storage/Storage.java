@@ -79,7 +79,7 @@ public class Storage {
      */
     public void save(TaskList taskList) throws StorageOperationException {
         assert taskList != null : "Task list is not valid";
-        try (BufferedWriter writer = Files.newBufferedWriter(path);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)
         ) {
             ArrayList<Task> taskArr = taskList.getAll();
             for (Task task : taskArr) {
@@ -141,15 +141,6 @@ public class Storage {
         }
         return newTask;
     }
-
-    public String getPath() {
-        return path.toString();
-    }
-
-    /* Note: Note the use of nested classes below.
-     * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
-     */
-
     /**
      * Signals that the given file path does not fulfill the storage filepath constraints.
      */
@@ -160,7 +151,7 @@ public class Storage {
     }
 
     /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
+     * Signals that some error has occurred while trying to convert and read/write data between the application
      * and the storage file.
      */
     public static class StorageOperationException extends GumboException {

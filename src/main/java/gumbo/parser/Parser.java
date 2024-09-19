@@ -65,7 +65,6 @@ public class Parser {
         };
     }
 
-    // update 1 description Do proj
     private static String getUpdateDescription(String userInput) throws IllegalValueException {
         ArrayList<String> descArr = new ArrayList<>(List.of(userInput.split(" ")));
         String detailToUpdate = descArr.get(2);

@@ -19,7 +19,7 @@ public class UpdateCommand extends Command {
      *
      * @param taskNumToUpdate Task index to be deleted from the task list.
      */
-    public UpdateCommand(int taskNumToUpdate, String updatedDesc) throws IllegalValueException {
+    public UpdateCommand(int taskNumToUpdate, String updatedDesc) {
         this.taskNumToUpdate = taskNumToUpdate;
         this.updatedDesc = updatedDesc;
     }
