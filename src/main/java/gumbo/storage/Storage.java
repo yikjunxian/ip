@@ -98,7 +98,7 @@ public class Storage {
      * @return An {@code ArrayList} of tasks loaded from the file.
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public ArrayList<Task> load() throws StorageOperationException {
+    public ArrayList<Task> load() throws StorageOperationException, IllegalValueException {
         ArrayList<Task> taskArr = new ArrayList<>();
 
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
@@ -128,7 +128,7 @@ public class Storage {
      * @param text The text line representing a task.
      * @return A {@code Task} object created from the text line.
      */
-    private static Task textToTask(String text) {
+    private static Task textToTask(String text) throws IllegalValueException {
         String[] str = text.split(",");
         Task newTask = switch (str[0]) {
         case "D" -> new Deadline(str[2], str[3]);

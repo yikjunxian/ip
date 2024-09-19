@@ -23,7 +23,6 @@ public class ExitCommand extends Command {
         } catch (Storage.StorageOperationException e) {
             return e.toString();
         }
-        super.setTerminateTrue();
         return "Bye. Hope to see you again soon!";
     }
 }
