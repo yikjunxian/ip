@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import gumbo.exceptions.IllegalValueException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public class StorageTest {
     }
 
     @Test
-    public void load_nonExistentFile_emptyListReturned() throws Storage.StorageOperationException {
+    public void load_nonExistentFile_emptyListReturned() throws Storage.StorageOperationException, IllegalValueException {
         // No file is created here, so the file does not exist
         ArrayList<Task> tasks = storage.load();
         assertTrue(tasks.isEmpty());
@@ -40,7 +41,7 @@ public class StorageTest {
 
     @Test
     public void load_existingFileWithValidTasks_tasksLoadedCorrectly() throws IOException,
-            Storage.StorageOperationException {
+            Storage.StorageOperationException, IllegalValueException {
         // Prepare a file with valid task data
         String content = "T,0,test task";
         Files.write(TEST_FILE_PATH, content.getBytes());
@@ -51,7 +52,7 @@ public class StorageTest {
     }
 
     @Test
-    public void load_existingFileWithInvalidData_exceptionThrown() throws IOException {
+    public void load_existingFileWithInvalidData_exceptionThrown() throws IOException, IllegalValueException {
         // Prepare a file with invalid task data
         String invalidData = "X,0,Invalid task format";
         Files.write(TEST_FILE_PATH, invalidData.getBytes());

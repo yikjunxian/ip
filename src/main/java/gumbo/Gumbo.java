@@ -6,15 +6,12 @@ import gumbo.exceptions.IllegalValueException;
 import gumbo.parser.Parser;
 import gumbo.storage.Storage;
 import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
-
 /**
  * Entry point of the Gumbo chatbot application.
  */
 public class Gumbo {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     private String errorMsg = "";
     /**
      * Constructs a {@code Main} instance with the relevant storage file path.
@@ -23,7 +20,6 @@ public class Gumbo {
      * @param filePath File path for loading and saving tasks data.
      */
     public Gumbo(String filePath) {
-        ui = new Ui();
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
@@ -43,14 +39,13 @@ public class Gumbo {
     public String getResponse(String input) {
         assert storage != null : "Storage not available";
         assert tasks != null : "Task list not available";
-        assert ui != null : "UI not available";
 
         if (!errorMsg.isEmpty()) {
             return errorMsg;
         }
         try {
             Command c = Parser.parse(input);
-            return c.execute(ui, storage, tasks);
+            return c.execute(storage, tasks);
         } catch (IllegalValueException e) {
             return e.getMessage();
         }

@@ -11,23 +11,20 @@ import java.util.ArrayList;
 import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
 
 
 public class AddCommandTest {
     private TaskList tasklist;
-    private Ui ui;
     private Storage storage;
 
     @Test
     public void execute_nonEmptyTask_success() throws Exception {
         tasklist = new TaskList(new ArrayList<Task>());
-        ui = new Ui();
         storage = new Storage("data/Gumbo.txt");
         Task testTask = new Task("generic task");
         AddCommand addCommand = new AddCommand(testTask);
 
-        addCommand.execute(ui, storage, tasklist);
+        addCommand.execute(storage, tasklist);
         // adding one task results tasklist increasing in size by 1
         assertEquals(1, tasklist.size());
 
@@ -38,7 +35,6 @@ public class AddCommandTest {
     @Test
     public void execute_outputMessage_success() throws Exception {
         tasklist = new TaskList(new ArrayList<Task>());
-        ui = new Ui();
         storage = new Storage("data/Gumbo.txt");
         Task testTask = new Task("generic task");
         AddCommand addCommand = new AddCommand(testTask);
@@ -50,7 +46,7 @@ public class AddCommandTest {
 
         try {
             // Act
-            addCommand.execute(ui, storage, tasklist);
+            addCommand.execute(storage, tasklist);
         } finally {
             // Restore the original System.out
             System.setOut(originalOut);

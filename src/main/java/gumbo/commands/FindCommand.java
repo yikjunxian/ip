@@ -3,7 +3,6 @@ package gumbo.commands;
 import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
 
 /**
  * Represents a command to find tasks that contain a specific keyword.
@@ -27,7 +26,7 @@ public class FindCommand extends Command {
      * @param taskList Contains list of tasks.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Storage storage, TaskList taskList) {
         TaskList matchingTaskList = taskList.findMatchingTasks(this.keyword);
         int i = matchingTaskList.size();
         StringBuilder str = new StringBuilder("Here are tasks matching tasks in your list: \n");

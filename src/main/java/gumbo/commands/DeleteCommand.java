@@ -4,7 +4,6 @@ import gumbo.exceptions.IllegalValueException;
 import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.TaskList;
-import gumbo.ui.Ui;
 
 /**
  * A Command that deletes a task to the task list when executed.
@@ -29,12 +28,11 @@ public class DeleteCommand extends Command {
      * Executes the command to delete the specified task to the task list.
      * Displays a message to the user indicating the task deleted and shows the current number of tasks.
      *
-     * @param ui User interface to interact with the user.
      * @param storage Storage to save tasks file or load task files from.
      * @param taskList Contains list of tasks.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Storage storage, TaskList taskList) {
         assert taskList != null : "task list not available when deleting command";
         assert taskNumToDelete >= 0 : "task number to delete is not valid";
         Task deletedTask = taskList.get(taskNumToDelete);
