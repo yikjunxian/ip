@@ -21,7 +21,6 @@ public class FindCommand extends Command {
      * Executes the find command which searches for tasks containing the keyword.
      * Displays all matching tasks to the user.
      *
-     * @param ui User interface to interact with the user.
      * @param storage Storage to save tasks file or load task files from.
      * @param taskList Contains list of tasks.
      */
@@ -29,7 +28,7 @@ public class FindCommand extends Command {
     public String execute(Storage storage, TaskList taskList) {
         TaskList matchingTaskList = taskList.findMatchingTasks(this.keyword);
         int i = matchingTaskList.size();
-        StringBuilder str = new StringBuilder("Here are tasks matching tasks in your list: \n");
+        StringBuilder str = new StringBuilder("Here are matching tasks in your list: \n");
         for (int j = 1; j < i + 1; j++) {
             Task x = matchingTaskList.get(j - 1);
             str.append(j).append(". ").append(x).append("\n");
