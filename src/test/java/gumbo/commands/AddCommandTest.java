@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import gumbo.tasks.Todo;
 import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.TaskList;
@@ -36,7 +37,7 @@ public class AddCommandTest {
     public void execute_outputMessage_success() throws Exception {
         tasklist = new TaskList(new ArrayList<Task>());
         storage = new Storage("data/Gumbo.txt");
-        Task testTask = new Task("generic task");
+        Todo testTask = new Todo("test");
         AddCommand addCommand = new AddCommand(testTask);
 
         // Capture the standard output
@@ -44,18 +45,14 @@ public class AddCommandTest {
         PrintStream originalOut = System.out; // Save the original System.out
         System.setOut(new PrintStream(outputStream));
 
-        try {
-            // Act
-            addCommand.execute(storage, tasklist);
-        } finally {
-            // Restore the original System.out
-            System.setOut(originalOut);
-        }
+        String outputString = addCommand.execute(storage, tasklist);
 
         // Assert the output
         String expectedOutput = "Got it. I've added this task:\n"
                 + testTask + "\n"
-                + "Now you have 1 tasks in the list\n";  // Make sure to match the exact format including new lines
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+                + "Now you have 1 tasks in the list";  // Make sure to match the exact format including new lines
+        assertEquals(expectedOutput, outputString);
     }
 }
+
+

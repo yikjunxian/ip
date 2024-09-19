@@ -10,13 +10,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import gumbo.exceptions.IllegalValueException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import gumbo.exceptions.IllegalValueException;
+import gumbo.storage.Storage;
 import gumbo.tasks.Task;
 import gumbo.tasks.Todo;
+
 public class StorageTest {
 
     private static final Path TEST_FILE_PATH = Paths.get("testGumbo.txt");
