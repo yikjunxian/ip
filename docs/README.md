@@ -20,7 +20,10 @@ Now you have 1 tasks in the list
 ```
 ## Adding a task with a deadline
 
-deadline [description of task] /by [deadline yyyy-mm-dd]
+deadline [description of task] /by [deadline]
+
+_note: deadline must be in ```yyyy-mm-dd``` format_
+
 
 Example: `deadline assignment /by 2024-09-20`
 
